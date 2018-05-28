@@ -13,7 +13,7 @@ func DeletePerson(c *gin.Context) {
 	var person model.Person
 	d := config.Dbh.Where("id = ?", id).Delete(&person)
 	fmt.Println(d)
-	c.JSON(200, gin.H{"id #" + id: "deleted"})
+	c.JSON(200, gin.H{"data": id})
 
 }
 
@@ -27,7 +27,7 @@ func UpdatePerson(c *gin.Context) {
 	}
 	c.BindJSON(&person)
 	config.Dbh.Save(&person)
-	c.JSON(200, person)
+	c.JSON(200, gin.H{"data": person})
 
 }
 
@@ -36,7 +36,7 @@ func CreatePerson(c *gin.Context) {
 	var person model.Person
 	c.BindJSON(&person)
 	config.Dbh.Create(&person)
-	c.JSON(200, person)
+	c.JSON(200, gin.H{"data": person})
 
 }
 
@@ -48,7 +48,7 @@ func GetPerson(c *gin.Context) {
 		c.AbortWithStatus(404)
 		fmt.Println(err)
 	} else {
-		c.JSON(200, person)
+		c.JSON(200, gin.H{"data": person})
 	}
 
 }
@@ -60,7 +60,7 @@ func GetPersons(c *gin.Context) {
 		c.AbortWithStatus(404)
 		fmt.Println(err)
 	} else {
-		c.JSON(200, people)
+		c.JSON(200, gin.H{"data": people})
 	}
 
 }

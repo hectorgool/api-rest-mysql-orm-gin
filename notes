@@ -1,0 +1,10 @@
+func DeletePerson(c *gin.Context) {
+
+	id := c.Params.ByName("id")
+	var person model.Person
+	d := config.Dbh.Where("id = ?", id).Delete(&person)
+	fmt.Println(d)
+	//c.JSON(200, gin.H{"id #" + id: "deleted"})
+	c.JSON(200, gin.H{"data": id})
+
+}
